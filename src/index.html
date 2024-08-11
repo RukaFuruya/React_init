@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo - js -</title>
+    <meta charset="UTF-8" />
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="input-area">
+      <!-- ToDoの追加用のボタン -->
+      <!-- inputした要素用のID ▶︎ Jsで使用する -->
+      <input id="add-text" placeholder="ToDoを入力" />
+      <button id="add-button">追加</button>
+    </div>
+    <!-- ToDoの中身 -->
+    <div class="imcomplete-area">
+      <p class="title">未完了のTODO</p>
+      <ul id="incomplete-list">
+       
+      </ul>
+    </div>
+    <!-- ToDoの完了要素のボタン -->
+    <div class="complete-area">
+      <p class="title">完了のTODO</p>
+      <ul id="complete-list">
+        
+      </ul>
+    </div>
+
+    <script type="module" src="./index.mjs"></script>
+  </body>
+</html>

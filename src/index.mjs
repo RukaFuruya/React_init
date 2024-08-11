@@ -1,164 +1,90 @@
-// const, letの変数宣言
-// var val1= "var変数";
-// console.log(val1);
+// 追加ボタンを押した時の挙動
+const onClickAdd = () => {
+  // inputTextにinput要素に入ったものを取得しちゃう。
+  const inputText = document.getElementById("add-text").value;
+  //   追加を押された時に、inputを空にする。
+  document.getElementById("add-text").value = "";
+  //   alert(inputText);
 
-// const　val3 = "いい感じ";
-// console.log(val3);
+  // 未完了のリストに追加
+  createIncompleteTodo(inputText);
+};
 
-// const val4 = {
-//     name: "yes",
-//     age: 31
-// }
-// console.log(val4);
-// val4.name="no";
-// console.log(val4);
+// 渡された引数を元に、未完了のTODOを作成する
+const createIncompleteTodo = (todo) => {
+  //   liの生成をする
+  const li = document.createElement("li");
+  console.log(li); // li生成確認用
 
-// const val5 = ["dog", "cat"];
-// console.log(val5);
-// val5[0] = "bird";
-// console.log(val5);
-// val5[2] = "monkey";
-// console.log(val5);
+  // divの生成
+  const div = document.createElement("div");
+  // css用のlist-rowも生成可能
+  div.className = "list-row";
+  console.log(div); // li生成確認用
 
+  // pタグの生成
+  const p = document.createElement("p");
+  // css用のtodo-itemも生成可能
+  p.className = "todo-item";
+  p.innerText = todo;
+  console.log(p); // li生成確認用
 
-// const name = "ジャケえ";
-// const age = 31;
+  // 完了タグ（buttton）作成
+  const completeButton = document.createElement("button");
 
-// const message1 = "I am" + name;
-// console.log(message1);
+  //   完了ボタンの中身作成
+  completeButton.innerText = "完了";
+  completeButton.addEventListener("click", () => {
+    // alert("完了");
+    // 完了ボタンが押された場合、liタグを全て完了のToDoに持っていく。
+    const moveTarget = completeButton.closest("li");
 
-// const message2 = `私の名前は${name}です。${age}`;
-// console.log(message2);
+    // console.log(moveTarget);
+    // 完了ボタンの次の削除ボタンを削除する。remove
+    completeButton.nextElementSibling.remove();
+    completeButton.remove();
 
-// // 従来の関数
-// // console.logの中で関数を呼び出して、その中の文字列をreturnするだけ。
-// function func1(str){
-//     return str;
-// }
-// console.log(func1("func1です。"));
+    // 戻すボタンを生成してdivは配下に設定
+    const backButton = document.createElement("button");
+    backButton.innerText = "戻す";
+    backButton.addEventListener("click", () => {
+      // Todoの内容を取得し、未完了リストに追加
+      const todoText = backButton.previousElementSibling.innerText;
+      createIncompleteTodo(todoText);
+      backButton.closest("li").remove();
+    });
 
-// // アロー関数
-// // 関数を変数のように書くことができる。
-// // 要するに、かっけえってわけ。
-// const func2 = (str) => {
-//     return str;
-// };
-// console.log(func2("func2です。"))
+    moveTarget.firstElementChild.appendChild(backButton);
 
-// アロー関数での簡単な足し算
-// const cal = (num1, num2) => num1 + num2;
-// console.log(cal(1,4));
-// これできてんのかな
-// const myProfile = {
-//     name: "Yes",
-//     age: 31
-// };
+    // 完了済みのリストに移動
+    // これだけで完了済みリストに全部移動される
+    document.getElementById("complete-list").appendChild(moveTarget);
+  });
+  //   console.log(completeButton);
 
-// const message1 = `I am ${myProfile.name}. ${myProfile.age} years old.`;
-// console.log(message1);
+  // 削除タグ（buttton）作成
+  const deleteButton = document.createElement("button");
+  //   削除ボタンの中身作成
+  deleteButton.innerText = "削除";
+  deleteButton.addEventListener("click", () => {
+    // alert("削除");
+    // 削除ボタンを押された時の処理 ▶︎ 該当部分を削除
+    const deleteTarget = deleteButton.closest("li");
+    // ↑一番近いliを探してくれる。だからclosest
+    // console.log(deleteTarget);
+    document.getElementById("incomplete-list").removeChild(deleteTarget);
+  });
+  console.log(deleteButton);
 
-// 分割代入
-// 分割代入をすると、わざわざオブジェクトの名前指定しなくてもよくなる。
-// const {name, age} = myProfile;
-// const message2 = `I am ${name}. ${age} years old.`;
-// console.log(message2);
+  // divよりも下の要素について要素をAppendする。
+  div.appendChild(p);
+  div.appendChild(completeButton);
+  div.appendChild(deleteButton);
+  li.appendChild(div);
+  console.log(li);
 
-// 配列の分割代入
-// 従来
-// const myProfile = ["Yes", 31];
-// message1 = `I am ${myProfile[0]}. & ${myProfile[1]} years old.}`;
-// console.log(message1);
+  document.getElementById("incomplete-list").appendChild(li);
+};
 
-// 配列の分割代入
-// 配列の中に好きな変数名をつけることができる。
-// const [name, age] = myProfile;
-// message2 = `I am ${name}. & ${age} years old.}`;
-// console.log(message2);
-
-// const myProfile = {
-//     age:31
-// };
-// const {age}= myProfile;
-// console.log(`I am ${age}`);
-
-// Jsのオブジェクト省略記法
-// const name = "waiwai";
-// const age = 31;
-
-// // 従来のここ。オブジェクトのnameにnameを代入がだるい。
-// const myProfile = {
-//     name: name,
-//     age: age
-// };
-
-// console.log(myProfile);
-
-// // 省略形
-// const myProfile1 = {
-//     name,
-//     age
-// };
-
-// console.log(myProfile1);
-
-
-// // スプレッド構文
-// const arr1 = [1, 2];
-// console.log(arr1);
-// console.log(...arr1);
-
-// const sumFunc = (num1, num2) => console.log(num1 + num2);
-// sumFunc(arr1[0], arr1[1]);
-// sumFunc(...arr1);
-
-
-// const arr2 = [1,2,3,4,5];
-// const [num1, num2, ...arr3] = arr2;
-// console.log(...arr3);
-
-// const nameArr = ["山田","田中","わっしょい"]; 
-// for(let i=0; i<nameArr.length; i++){
-//     console.log(nameArr[i]);
-// }
-
-// // mapを使った配列の処理
-// nameArr.map((name) => {
-//     console.log(name);
-// });
-
-// // map や　filter を使った配列の処理
-
-// const numArr = [1,2,3,4,5];
-// const newNumArr = numArr.filter((num) => {
-//    return num % 2 === 1 ;
-// });
-// console.log(newNumArr);
-// const nameArr = ["山田","田中","わっしょい"];
-// const newnameArr = nameArr.map((name)=>{
-//     if (name === "わっしょい") {
-//         return name;
-//     } else {
-//         return `${name}さん`;
-//     }
-    
-// }) ;
-// console.log(newnameArr);
-
-// 三項演算子
-// ある条件　？　条件がTrueのとき : 条件がfalseのとき
-// const val1 = 3 > 1 ? "True" : "false";
-// console.log(val1);
-
-// // trueとfalseで値を変えたいに三項演算子使う。
-// const num = 1300;
-// const formattedNum = typeof num === "number" ? num.toLocaleString() : "数値を入力";
-// console.log(formattedNum);
-// // ~$ 1,300
-
-// const checkSum = (num1, num2) => {
-//     return num1 + num2 > 100 ? "100を超えています。"　: "数値は正常です。";
-// }
-
-// console.log(checkSum(80, 10));
-
-// ~$ 数値は正常です。
+// HTMLのidを取得する。
+document.getElementById("add-button").addEventListener("click", onClickAdd);
